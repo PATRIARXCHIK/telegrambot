@@ -73,13 +73,13 @@ def TechnoCom(message): #Парсер TechnoCom
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
-        url = 'https://vk.com/public212541280'
+        url = 'https://vk.com/technocom2022'
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('wall', class_="get")
         list = []
         quotes.append(list)
-        bot.send_message(message.from_user.id, len(quotes))
+        """bot.send_message(message.from_user.id, len(quotes))"""
 
 @bot.message_handler(chat_types=['text'])
 def ITfest_2022(message): #Парсер IT-fest_2022
@@ -91,7 +91,7 @@ def ITfest_2022(message): #Парсер IT-fest_2022
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('div', class_="wall_posts")
         quotesList = [quotes]
-        bot.send_message(message.from_user.id, len(quotesList))
+        """bot.send_message(message.from_user.id, len(quotesList))"""
 
 @bot.message_handler(chat_types=['text'])
 def IASF2022(message):   #Парсер IASF2022
@@ -103,7 +103,7 @@ def IASF2022(message):   #Парсер IASF2022
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('div', class_="wall_posts")
         quotesList = [quotes]
-        bot.send_message(message.from_user.id, len(quotesList))
+        """bot.send_message(message.from_user.id, len(quotesList))"""
 
 @bot.message_handler(chat_types=['text'])
 def FestOKK(message):  #Парсер FestOKK
@@ -115,7 +115,7 @@ def FestOKK(message):  #Парсер FestOKK
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('div', class_="wall_posts")
         quotesList = [quotes]
-        bot.send_message(message.from_user.id, len(quotesList))
+        """bot.send_message(message.from_user.id, len(quotesList))"""
 
 @bot.message_handler(chat_types=['text'])
 def Neuron(message):  #Парсер Neuron
@@ -127,6 +127,6 @@ def Neuron(message):  #Парсер Neuron
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('div', class_="wall_posts")
         quotesList = [quotes]
-        bot.send_message(message.from_user.id, len(quotesList))
+        """bot.send_message(message.from_user.id, len(quotesList))"""
 
 bot.polling(none_stop=True, interval=0)
