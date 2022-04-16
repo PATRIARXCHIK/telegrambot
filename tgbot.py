@@ -6,12 +6,12 @@ from bs4 import BeautifulSoup
 # GregoryyyyBot -  Айдишник
 # Gregory - Имя
 
+bot = telebot.TeleBot("5189417073:AAH73dnRMnHX1MTWn6zh6jJtcIRjmgmRhBI") #Токен бота
 
-bot = telebot.TeleBot("5189417073:AAH73dnRMnHX1MTWn6zh6jJtcIRjmgmRhBI")
-
+VKkey = '1aef94f11aef94f11aef94f1ec1a93a5f411aef1aef94f178b514c16c04a348b2878471' #Ключ доступа вконтакте
 
 @bot.message_handler(commands=['start'])
-def start(message):
+def start(message):  #Кнопки меню
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton('#TechnoCom')
     item2 = types.KeyboardButton('#IT-fest_2022')
@@ -21,23 +21,22 @@ def start(message):
     item6 = types.KeyboardButton('#НевидимыйМир')
     item7 = types.KeyboardButton('#КонкурсНИР')
     item8 = types.KeyboardButton('#VRARFest3D')
-    item9 = types.KeyboardButton('#Game')
 
-    markup.add(item1, item2, item3, item4, item5, item6, item7, item8, item9)
+
+    markup.add(item1, item2, item3, item4, item5, item6, item7, item8)
     bot.send_message(message.from_user.id, 'Добро пожаловать!', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
-def get_text_messages(message):
-    commandslist = ['#help', '#TechnoCom', '#IT-fest_2022', '#IASF2022', 'ФестивальОКК', '#Нейрофест', '#Невидимый мир',
-                    '#КонкурсНИР', '#VRARFest3D', '#Game']
+def get_text_messages(message):  #Команды для бота
+    commandslist = ['#help', '#TechnoCom', 'IT-fest_2022', '#IASF2022', 'ФестивальОКК', '#Нейрофест', '#Невидимый мир',
+                    '#КонкурсНИР', '#VRARFest3D']
+
     if message.text == "#help":
         bot.send_message(message.from_user.id, "Вот список новостных групп: \n#TechnoCom\n#IT-fest_2022\n"
                                                "#IASF2022'\n#ФестивальОКК\n#Нейрофест\n#НевидимыйМир\n"
                                                "#КонкурсНИР\n#VRARFest3D")
 
-    if message.text == '#Game':
-        bot.send_message(message.from_user.id, 'https://lichess.org/2eqFEWGU')
     if message.text == '#TechnoCom':
         bot.send_message(message.from_user.id, '\nВы отписались от рассылки этой группы')
     if message.text == "#TechnoCom":
@@ -64,24 +63,26 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id, 'https://vk.com/nauchim.online')
     if message.text == '#VRARFest3D':
         bot.send_message(message.from_user.id, 'https://vk.com/nauchim.online')
+
     if message.text not in commandslist:
         bot.send_message(message.from_user.id, 'Я тебя не понимаю. Напиши #help')
 
 
 @bot.message_handler(chat_types=['text'])
-def TechnoCom(message):
+def TechnoCom(message): #Парсер TechnoCom
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
         url = 'https://vk.com/public212541280'
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'lxml')
-        quotes = soup.find_all('div', class_="wall_posts")
-        quotesList = [quotes]
-        bot.send_message(message.from_user.id, len(quotesList))
+        quotes = soup.find_all('wall', class_="get")
+        list = []
+        quotes.append(list)
+        bot.send_message(message.from_user.id, len(quotes))
 
 @bot.message_handler(chat_types=['text'])
-def ITfest_2022(message):
+def ITfest_2022(message): #Парсер IT-fest_2022
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
@@ -93,7 +94,7 @@ def ITfest_2022(message):
         bot.send_message(message.from_user.id, len(quotesList))
 
 @bot.message_handler(chat_types=['text'])
-def IASF2022(message):
+def IASF2022(message):   #Парсер IASF2022
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
@@ -105,7 +106,7 @@ def IASF2022(message):
         bot.send_message(message.from_user.id, len(quotesList))
 
 @bot.message_handler(chat_types=['text'])
-def FestOKK(message):
+def FestOKK(message):  #Парсер FestOKK
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
@@ -117,7 +118,7 @@ def FestOKK(message):
         bot.send_message(message.from_user.id, len(quotesList))
 
 @bot.message_handler(chat_types=['text'])
-def Neuron(message):
+def Neuron(message):  #Парсер Neuron
     parser = True
     bot.send_message(message.from_user.id, "\nВы подписались на рассылку этой группы")
     while parser == True:
@@ -127,4 +128,5 @@ def Neuron(message):
         quotes = soup.find_all('div', class_="wall_posts")
         quotesList = [quotes]
         bot.send_message(message.from_user.id, len(quotesList))
+
 bot.polling(none_stop=True, interval=0)
