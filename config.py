@@ -1,7 +1,4 @@
-db_config = {
-    "mysql": {
-        "host": "localhost",
-        "user": "root",
-        "pass": "root",
-    }
-}
+host= "localhost"
+user = "root"
+password = "XR86PI93LX"
+db_name = "online_movie_rating"

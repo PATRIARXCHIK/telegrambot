@@ -3,8 +3,23 @@ from telebot import types
 import requests
 from bs4 import BeautifulSoup
 
-# GregoryyyyBot -  Айдишник
-# Gregory - Имя
+import pymysql
+from config import host, user, password, db_name
+try:
+    coonnection = pymysql.connect(
+        host=host,
+        port=user,
+        user=user,
+        password=password,
+        database=db_name,
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    print("successfully connected")
+except Exception as ex:
+    print("Connection refused...")
+    print(ex)
+
+
 MainList = []
 
 bot = telebot.TeleBot("5189417073:AAH73dnRMnHX1MTWn6zh6jJtcIRjmgmRhBI")  # Токен бота
