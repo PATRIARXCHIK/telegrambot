@@ -5,7 +5,12 @@ from bs4 import BeautifulSoup
 
 # KvantNews - name
 # KvantNewsBot - username
+
 MainList = []
+MMainList = []
+
+
+
 
 bot = telebot.TeleBot("5338841830:AAHjWuQeCIVcf6zU6Zzxjxn88W8P_R4JWos")  # Токен бота
 
@@ -49,21 +54,33 @@ def get_text_messages(message):  # Команды для бота
 def Konkurs(message):  # Парсер Конкурсов
     #stop = bot.send_message(message.from_user.id, "Вы уверены что хотите отписаться от рассылки данной группы?\n"
     #                                               "Если да, то нажмите снова на эту же группу")
-    f = open('konkurstext.txt', 'w')
+
+    f = open('konkurstext.txt', 'r', encoding='utf-8')
+    for j in f:
+        MMainList.append(j)
+    f.close()
+
+
+    f = open('konkurstext.txt', 'w', encoding='utf-8')
     parser = True
-    f = open('Konkurstext')
     bot.send_message(message.from_user.id, '\nВы подписались на рассылку этой группы')
     while parser == True:
+
         url = 'https://kvantorium69.ru/konkurs/'
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'lxml')
-        quotes = soup.find_all('div', class_="post-content")
+        quotes = soup.find_all('h2', class_="entry-title")
         for i in quotes:
-            if i not in MainList:
-
+            if i not in MMainList:
                 MainList.append(i)
+                ftext = "\n".join(map(str, MainList))
+                f.write(ftext)
+                MMainList.append(i)
                 bot.send_message(message.from_user.id, "На сайте: https://kvantorium69.ru/konkurs/ \n"
                                                        "Появился новый конкурс, зайдите посмотреть и поучавствовать")
+    f.close()
+
+
         #if message.text == '#Konkurs':
         #   bot.register_next_step_handler(stop, get_text_messages)
 
